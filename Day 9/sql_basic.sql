@@ -1,0 +1,8 @@
+CREATE DATABASE college:
+USE college;
+
+
+CREATE TABLE std(id INT PRIMARY KEY, name VARCHAR(50), marks INT );
+
+
+INSERT INSERT std VALUES(101,"KARAN",99);
