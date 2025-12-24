@@ -1,0 +1,5 @@
+CREATE TABLE student (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    marks INTEGER
+);
