@@ -4,14 +4,17 @@
     <title>Students</title>
 </head>
 <body>
-    <h1>Student List</h1>
 
-    <ul>
-        {% for student in students %}
-            <li>
-                {{ student.name }} - {{ student.email }} - {{ student.age }}
-            </li>
-        {% endfor %}
-    </ul>
+<h1>Student List</h1>
+<a href="/add/">Add Student</a>
+
+<ul>
+    {% for student in students %}
+        <li>
+            {{ student.name }} | {{ student.email }} | {{ student.age }}
+        </li>
+    {% endfor %}
+</ul>
+
 </body>
 </html>

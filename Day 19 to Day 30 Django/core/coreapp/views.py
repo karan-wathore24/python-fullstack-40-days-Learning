@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 
 from django.http import HttpResponse
 
@@ -25,3 +25,18 @@ def add_student(request):
 def student_list(request):
     students = Student.objects.all()
     return render(request, 'students.html', {'students': students})
+
+def add_student(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        age = request.POST.get('age')
+
+        Student.objects.create(
+            name=name,
+            email=email,
+            age=age
+        )
+        return redirect('student_list')
+
+    return render(request, 'add_student.html')
