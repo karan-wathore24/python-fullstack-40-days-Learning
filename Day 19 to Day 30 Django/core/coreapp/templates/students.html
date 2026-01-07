@@ -1,20 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Students</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-
-<h1>Student List</h1>
+    <h1>Student List</h1>
 <a href="/add/">Add Student</a>
 
-<ul>
+{% comment %} <table class="table table-bodered table-secondary">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>email</th>
+        <th>age</th>
+    </tr>
+    <tr>
     {% for student in students %}
-        <li>
-            {{ student.name }} | {{ student.email }} | {{ student.age }}
-        </li>
+        <td>{{student.id}}</td>
+        <td>{{student.name}}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.age }}</td>
+        
     {% endfor %}
-</ul>
+    </tr>
 
+</table> {% endcomment %}
+
+<ul>
+{% for student in students %}
+    <li>
+        {{ student.name }} |
+        {{ student.email }} |
+        {{ student.age }}
+        <a href="/update/{{ student.id }}/">Edit</a>
+        <a href="/delete/{{ student.id }}/">Delete</a>
+    </li>
+{% endfor %}
+</ul>
 </body>
 </html>

@@ -1,6 +1,7 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect ,  get_object_or_404
 
 from django.http import HttpResponse
+from .models import Student
 
 def home(request):
     return render(request,'home.html')
@@ -11,15 +12,8 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
-from django.http import HttpResponse
-from .models import Student
 
 def add_student(request):
-    Student.objects.create(
-        name="Rahul",
-        email="rahul@gmail.com",
-        age=22
-    )
     return HttpResponse("Student Added Successfully")
 
 def student_list(request):
@@ -40,3 +34,23 @@ def add_student(request):
         return redirect('student_list')
 
     return render(request, 'add_student.html')
+
+
+
+def update_student(request, id):
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == "POST":
+        student.name = request.POST.get('name')
+        student.email = request.POST.get('email')
+        student.age = request.POST.get('age')
+        student.save()
+        return redirect('student_list')
+
+    return render(request, 'update_student.html', {'student': student})
+
+
+def delete_student(request, id):
+    student = get_object_or_404(Student, id=id)
+    student.delete()
+    return redirect('student_list')
