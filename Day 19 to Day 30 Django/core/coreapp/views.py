@@ -1,4 +1,7 @@
 from django.shortcuts import render , redirect ,  get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 from django.http import HttpResponse
 from .models import Student
@@ -54,3 +57,27 @@ def delete_student(request, id):
     student = get_object_or_404(Student, id=id)
     student.delete()
     return redirect('student_list')
+
+
+def user_login(request):
+    if request.method == "POST":
+        user = authenticate(
+            request,
+            username=request.POST['username'],
+            password=request.POST['password']
+        )
+        if user:
+            login(request, user)
+            return redirect('student_list')
+    return render(request, 'login.html')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
+
+@login_required
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'students.html', {'students': students})
