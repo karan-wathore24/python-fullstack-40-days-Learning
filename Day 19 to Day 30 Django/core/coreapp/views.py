@@ -1,6 +1,7 @@
 from django.shortcuts import render , redirect ,  get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 
 from django.http import HttpResponse
@@ -78,6 +79,12 @@ def user_logout(request):
 
 
 @login_required
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'students.html', {'students': students})
+
+
+@permission_required('coreapp.view_student')
 def student_list(request):
     students = Student.objects.all()
     return render(request, 'students.html', {'students': students})
