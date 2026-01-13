@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
+    {% include "base.html" %}
+
 <form method="POST">
 {% csrf_token %}
     <input name="username" placeholder="Username"><br>

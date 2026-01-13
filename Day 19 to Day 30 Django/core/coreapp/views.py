@@ -20,9 +20,14 @@ def contact(request):
 def add_student(request):
     return HttpResponse("Student Added Successfully")
 
+# def student_list(request):
+#     students = Student.objects.all()
+#     return render(request, 'students.html', {'students': students})
+from django.http import HttpResponse
+
 def student_list(request):
-    students = Student.objects.all()
-    return render(request, 'students.html', {'students': students})
+    return HttpResponse("STUDENT LIST VIEW WORKING")
+
 
 def add_student(request):
     if request.method == "POST":
@@ -88,3 +93,6 @@ def student_list(request):
 def student_list(request):
     students = Student.objects.all()
     return render(request, 'students.html', {'students': students})
+
+def test(request):
+    return HttpResponse("OK WORKING")
