@@ -25,9 +25,6 @@ def student_list(request):
     return render(request, 'students.html', {'students': students})
 from django.http import HttpResponse
 
-# def student_list(request):
-#     # return render(request,"student.html")
-#     return HttpResponse("STUDENT LIST VIEW WORKING")
 
 
 def add_student(request):
