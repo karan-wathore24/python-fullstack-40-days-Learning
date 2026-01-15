@@ -81,16 +81,16 @@ def user_logout(request):
     return redirect('login')
 
 
-# @login_required
-# def student_list(request):
-#     students = Student.objects.all()
-#     return render(request, 'students.html', {'students': students})
+@login_required
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'students.html', {'students': students})
 
 
-# @permission_required('coreapp.view_student')
-# def student_list(request):
-#     students = Student.objects.all()
-#     return render(request, 'students.html', {'students': students})
+@permission_required('coreapp.view_student')
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'students.html', {'students': students})
 
 def test(request):
     return HttpResponse("OK WORKING")
