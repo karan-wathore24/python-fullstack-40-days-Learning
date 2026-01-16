@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
+from django.contrib.auth import logout
+
 
 from django.http import HttpResponse
 from .models import Student
@@ -94,3 +96,9 @@ def student_list(request):
 
 def test(request):
     return HttpResponse("OK WORKING")
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("login")
+
