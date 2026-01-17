@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import permission_required
 
 from django.contrib.auth import logout
 
-
+from django.contrib import messages
 from django.http import HttpResponse
 from .models import Student
 
@@ -54,6 +54,7 @@ def update_student(request, id):
         student.email = request.POST.get('email')
         student.age = request.POST.get('age')
         student.save()
+        messages.success(request,"Student added succcessfully ")
         return redirect('student_list')
 
     return render(request, 'update_student.html', {'student': student})
@@ -62,6 +63,7 @@ def update_student(request, id):
 def delete_student(request, id):
     student = get_object_or_404(Student, id=id)
     student.delete()
+    messages.error(request,"Student Deleted")
     return redirect('student_list')
 
 
