@@ -2,12 +2,17 @@ from django.shortcuts import render , redirect ,  get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
+from .serializers import StudentSerializer
+
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from .models import Student
+from .serializers import StudentSerializer
 
 from django.contrib.auth import logout
-
-from django.contrib import messages
-from django.http import HttpResponse
-from .models import Student
 
 def home(request):
     return render(request,'home.html')
@@ -104,3 +109,8 @@ def user_logout(request):
     logout(request)
     return redirect("login")
 
+@api_view(['GET'])
+def student_api(request):
+    students = Student.objects.all()
+    serializer = StudentSerializer(students, many=True)
+    return Response(serializer.data)
