@@ -1,9 +1,11 @@
 from django.shortcuts import render , redirect ,  get_object_or_404
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from .serializers import StudentSerializer
 
+from rest_framework import status
 
 
 from rest_framework.decorators import api_view
@@ -109,8 +111,16 @@ def user_logout(request):
     logout(request)
     return redirect("login")
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def student_api(request):
-    students = Student.objects.all()
-    serializer = StudentSerializer(students, many=True)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        students = Student.objects.all()
+        serializer = StudentSerializer(students, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = StudentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
