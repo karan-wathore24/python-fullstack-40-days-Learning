@@ -11,7 +11,7 @@ urlpatterns = [
     path('delete/<int:id>/', views.delete_student, name='delete_student'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
-    path('test/', views.test,name="test"),
+    path('test/', views.test ,name="test"),
     path("logout/", views.user_logout, name="logout"),
     path('api/students/', views.student_api, name='student_api'), 
 
